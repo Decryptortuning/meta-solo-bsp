@@ -1,0 +1,34 @@
+diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
+index 2a0b8db2cfd..380d865ca29 100644
+--- a/arch/arm/mach-imx/mx6/Kconfig
++++ b/arch/arm/mach-imx/mx6/Kconfig
+@@ -476,6 +476,21 @@ config TARGET_MX6SOLOSABRESD
+     select TARGET_MX6SABRESD_COMMON
+     depends on MX6S
+ 
++config TARGET_3DR_HDTC
++	bool "3dr_hdtc"
++	depends on MX6S
++	select BOARD_LATE_INIT
++	select DM
++	select DM_THERMAL
++	select IMX_THERMAL
++	select BOARD_EARLY_INIT_F
++	select NXP_BOARD_REVISION
++	imply CMD_DM
++	select FSL_CAAM
++	select FSL_BLOB
++	select ARCH_MISC_INIT
++	select RNG_SELF_TEST
++
+ config TARGET_MX6SLEVK
+ 	bool "mx6slevk"
+ 	depends on MX6SL
+@@ -809,6 +824,7 @@ source "board/freescale/mx6memcal/Kconfig"
+ source "board/freescale/mx6sabreauto/Kconfig"
+ source "board/freescale/mx6sabresd/Kconfig"
+ source "board/freescale/mx6slevk/Kconfig"
++source "board/3dr/3dr_hdtc/Kconfig"
+ source "board/freescale/mx6sllevk/Kconfig"
+ source "board/freescale/mx6sxsabresd/Kconfig"
+ source "board/freescale/mx6sxsabreauto/Kconfig"

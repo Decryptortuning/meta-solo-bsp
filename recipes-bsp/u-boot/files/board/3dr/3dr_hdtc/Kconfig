@@ -1,0 +1,16 @@
+if TARGET_3DR_HDTC
+
+config SYS_BOARD
+	default "3dr_hdtc"
+
+config SYS_VENDOR
+	default "3dr"
+
+config SYS_CONFIG_NAME
+	default "3dr_hdtc"
+
+config TEXT_BASE
+	default 0x17800000
+
+endif
+

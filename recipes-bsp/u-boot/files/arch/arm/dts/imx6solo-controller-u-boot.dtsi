@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * U-Boot specific additions for 3DR Solo controller.
+ */
+
+#include "imx6qdl-u-boot.dtsi"
+
+/ {
+	wdt-reboot {
+		compatible = "wdt-reboot";
+		wdt = <&wdog2>;
+		bootph-pre-ram;
+	};
+};
+
+&usdhc2 {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc2_1 {
+	bootph-pre-ram;
+};
+
+&usdhc3 {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc3_1 {
+	bootph-pre-ram;
+};
+
+&uart1 {
+	bootph-pre-ram;
+};
+
+&pinctrl_uart1_1 {
+	bootph-pre-ram;
+};
+
+&wdog2 {
+	bootph-pre-ram;
+};

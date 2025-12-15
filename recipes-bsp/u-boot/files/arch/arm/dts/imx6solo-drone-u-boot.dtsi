@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * U-Boot specific additions for 3DR Solo drone.
+ */
+
+#include "imx6qdl-u-boot.dtsi"
+
+/ {
+	wdt-reboot {
+		compatible = "wdt-reboot";
+		wdt = <&wdog2>;
+		bootph-pre-ram;
+	};
+};
+
+&usdhc3 {
+	bootph-pre-ram;
+};
+
+&pinctrl_usdhc3_1 {
+	bootph-pre-ram;
+};
+
+&uart2 {
+	bootph-pre-ram;
+};
+
+&pinctrl_uart2_3 {
+	bootph-pre-ram;
+};
+
+&wdog2 {
+	bootph-pre-ram;
+};

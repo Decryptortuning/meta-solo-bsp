@@ -1,0 +1,105 @@
+diff --git a/include/configs/mx6sabre_common.h b/include/configs/mx6sabre_common.h
+index 4f9a21a..fdd42fd 100644
+--- a/include/configs/mx6sabre_common.h
++++ b/include/configs/mx6sabre_common.h
+@@ -61,6 +61,33 @@
+ #define EMMC_ENV ""
+ #endif
+ 
++#ifdef CONFIG_TARGET_3DR_HDTC
++#define MX6_SABRE_ENV_FDT_FILE \
++	"fdt_file=" CONFIG_DEFAULT_DEVICE_TREE ".dtb\0"
++#define MX6_SABRE_ENV_FINDFDT \
++	"findfdt=setenv fdt_file " CONFIG_DEFAULT_DEVICE_TREE ".dtb\0"
++#else
++#define MX6_SABRE_ENV_FDT_FILE \
++	"fdt_file=undefined\0"
++#define MX6_SABRE_ENV_FINDFDT \
++	"findfdt="\\
++		"if test $fdt_file = undefined; then " \\
++			"if test $board_name = SABREAUTO && test $board_rev = MX6QP; then " \\
++				"setenv fdt_file imx6qp-sabreauto.dtb; fi; " \\
++			"if test $board_name = SABREAUTO && test $board_rev = MX6Q; then " \\
++				"setenv fdt_file imx6q-sabreauto.dtb; fi; " \\
++			"if test $board_name = SABREAUTO && test $board_rev = MX6DL; then " \\
++				"setenv fdt_file imx6dl-sabreauto.dtb; fi; " \\
++			"if test $board_name = SABRESD && test $board_rev = MX6QP; then " \\
++				"setenv fdt_file imx6qp-sabresd.dtb; fi; " \\
++			"if test $board_name = SABRESD && test $board_rev = MX6Q; then " \\
++				"setenv fdt_file imx6q-sabresd.dtb; fi; " \\
++			"if test $board_name = SABRESD && test $board_rev = MX6DL; then " \\
++				"setenv fdt_file imx6dl-sabresd.dtb; fi; " \\
++			"if test $fdt_file = undefined; then " \\
++				"echo WARNING: Could not determine dtb to use; fi; " \\
++		"fi;\0"
++#endif
+ #if defined(CONFIG_NAND_BOOT)
+ 	/*
+ 	 * The dts also enables the WEIN NOR which is mtd0.
+@@ -97,30 +124,13 @@
+ 		CFG_MFG_ENV_SETTINGS \
+ 		TEE_ENV \
+ 		"image=zImage\0" \
+-		"fdt_file=undefined\0" \
++		MX6_SABRE_ENV_FDT_FILE \
+ 		"fdt_addr=0x18000000\0" \
+ 		"fdt_high=0xffffffff\0"   \
+ 		"splashimage=0x28000000\0" \
+ 		"tee_addr=0x20000000\0" \
+ 		"tee_file=undefined\0" \
+-		"findfdt="\
+-			"if test $fdt_file = undefined; then " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6QP; then " \
+-					"setenv fdt_file imx6qp-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6Q; then " \
+-					"setenv fdt_file imx6q-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6DL; then " \
+-					"setenv fdt_file imx6dl-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6QP; then " \
+-					"setenv fdt_file imx6qp-sabresd.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6Q; then " \
+-					"setenv fdt_file imx6q-sabresd.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6DL; then " \
+-					"setenv fdt_file imx6dl-sabresd.dtb; fi; " \
+-				"if test $fdt_file = undefined; then " \
+-					"echo WARNING: Could not determine dtb to use; " \
+-				"fi; " \
+-			"fi;\0" \
++		MX6_SABRE_ENV_FINDFDT \
+ 		"findtee="\
+ 			"if test $tee_file = undefined; then " \
+ 				"if test $board_name = SABREAUTO && test $board_rev = MX6QP; then " \
+@@ -161,7 +171,7 @@
+ 	"epdc_waveform=epdc_splash.bin\0" \
+ 	"script=boot.scr\0" \
+ 	"image=zImage\0" \
+-	"fdt_file=undefined\0" \
++	MX6_SABRE_ENV_FDT_FILE \
+ 	"fdt_addr=0x18000000\0" \
+ 	"tee_addr=0x20000000\0" \
+ 	"tee_file=undefined\0" \
+@@ -257,23 +267,7 @@
+ 				"bootz; " \
+ 			"fi; " \
+ 		"fi;\0" \
+-		"findfdt="\
+-			"if test $fdt_file = undefined; then " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6QP; then " \
+-					"setenv fdt_file imx6qp-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6Q; then " \
+-					"setenv fdt_file imx6q-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABREAUTO && test $board_rev = MX6DL; then " \
+-					"setenv fdt_file imx6dl-sabreauto.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6QP; then " \
+-					"setenv fdt_file imx6qp-sabresd.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6Q; then " \
+-					"setenv fdt_file imx6q-sabresd.dtb; fi; " \
+-				"if test $board_name = SABRESD && test $board_rev = MX6DL; then " \
+-					"setenv fdt_file imx6dl-sabresd.dtb; fi; " \
+-				"if test $fdt_file = undefined; then " \
+-					"echo WARNING: Could not determine dtb to use; fi; " \
+-			"fi;\0" \
++		MX6_SABRE_ENV_FINDFDT \
+ 		"findtee="\
+ 			"if test $tee_file = undefined; then " \
+ 				"if test $board_name = SABREAUTO && test $board_rev = MX6QP; then " \
