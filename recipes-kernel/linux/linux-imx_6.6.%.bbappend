@@ -14,6 +14,7 @@ SRC_URI:append:imx-solo = " \
     file://solo-usb-gadget.cfg \
     file://solo-wifi.cfg \
     file://solo-serial.cfg \
+    file://solo-squashfs.cfg \
 "
 
 # NXP's linux-imx recipe copies its defconfig after do_kernel_configme, which
@@ -24,4 +25,5 @@ DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
     solo-usb-gadget.cfg \
     solo-wifi.cfg \
     solo-serial.cfg \
+    solo-squashfs.cfg \
 "
