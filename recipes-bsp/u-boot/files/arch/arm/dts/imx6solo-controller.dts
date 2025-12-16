@@ -13,6 +13,12 @@
 	model = "3DR Solo Controller (U-Boot)";
 	compatible = "3dr,solo-controller", "fsl,imx6dl";
 
+	aliases {
+		/* Match legacy OpenSolo mapping: SD2=mmc0, SD3=mmc1. */
+		mmc0 = &usdhc2;
+		mmc1 = &usdhc3;
+	};
+
 	chosen {
 		stdout-path = &uart1;
 	};

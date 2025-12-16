@@ -7,7 +7,11 @@
 #define __3DR_HDTC_CONFIG_H
 
 #define CFG_MXC_UART_BASE	UART1_BASE
+#ifdef CONFIG_HDTC_CONSOLE_DEV
+#define CONSOLE_DEV		CONFIG_HDTC_CONSOLE_DEV
+#else
 #define CONSOLE_DEV		"ttymxc0"
+#endif
 
 #if defined(CONFIG_MX6S)
 #define PHYS_SDRAM_SIZE		(512u * 1024 * 1024)

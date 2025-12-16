@@ -9,8 +9,11 @@ config SYS_VENDOR
 config SYS_CONFIG_NAME
 	default "3dr_hdtc"
 
+config HDTC_CONSOLE_DEV
+	string "Linux console device (bootargs)"
+	default "ttymxc0"
+
 config TEXT_BASE
 	default 0x17800000
 
 endif
-
