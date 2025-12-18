@@ -48,6 +48,16 @@ int overwrite_console(void)
 	return 1;
 }
 
+int board_mmc_get_env_dev(int devno)
+{
+	/*
+	 * i.MX6 Boot ROM reports the USDHC instance number, but U-Boot numbers
+	 * available MMC devices from 0. Map the ROM instance to U-Boot's MMC
+	 * device index so env/fastboot target the actual boot device.
+	 */
+	return devno > 0 ? devno - 1 : devno;
+}
+
 #ifdef CONFIG_LDO_BYPASS_CHECK
 void ldo_mode_set(int ldo_bypass)
 {
