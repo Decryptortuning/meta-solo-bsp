@@ -29,6 +29,14 @@
 	bootph-pre-ram;
 };
 
+&uart1 {
+	bootph-pre-ram;
+};
+
+&pinctrl_uart1_1 {
+	bootph-pre-ram;
+};
+
 &wdog2 {
 	bootph-pre-ram;
 };

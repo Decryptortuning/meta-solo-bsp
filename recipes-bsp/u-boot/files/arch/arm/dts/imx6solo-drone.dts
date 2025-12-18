@@ -24,7 +24,7 @@
 	};
 
 	chosen {
-		stdout-path = &uart2;
+		stdout-path = &uart1;
 	};
 };
 
@@ -178,6 +178,15 @@
 		};
 	};
 
+	uart1 {
+		pinctrl_uart1_1: uart1grp-1 {
+			fsl,pins = <
+				MX6QDL_PAD_CSI0_DAT10__UART1_TX_DATA 0x1b0b1
+				MX6QDL_PAD_CSI0_DAT11__UART1_RX_DATA 0x1b0b1
+			>;
+		};
+	};
+
 	ipu1 {
 		pinctrl_ipu1_5: ipu1grp-5 {
 			fsl,pins = <
@@ -263,6 +272,12 @@
 
 &pcie {
 	reset-gpio = <&gpio5 2 GPIO_ACTIVE_LOW>;
+	status = "okay";
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart1_1>;
 	status = "okay";
 };
 
