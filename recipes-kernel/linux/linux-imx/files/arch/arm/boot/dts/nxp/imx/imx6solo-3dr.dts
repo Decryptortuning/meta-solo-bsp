@@ -109,10 +109,10 @@
 	};
 
 	sound-hdmi {
-		compatible = "fsl,imx6q-audio-hdmi",
-			     "fsl,imx-audio-hdmi";
+		compatible = "fsl,imx6qdl-audio-hdmi";
 		model = "imx-audio-hdmi";
 		hdmi-controller = <&hdmi_audio>;
+		cpu-dai = <&ssi2>;
 	};
 
 	mipi_dsi_reset: mipi-dsi-reset {
@@ -368,5 +368,5 @@
 &epdc {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_epdc_0>;
-	status = "okay";
+	status = "disabled";
 };
