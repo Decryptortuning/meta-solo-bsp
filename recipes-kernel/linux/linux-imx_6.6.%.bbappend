@@ -6,6 +6,7 @@ SRC_URI:append:imx-solo = " \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-controller.dts;subdir=git \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-3dr.dts;subdir=git \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-3dr-analogtvin.dts;subdir=git \
+    file://solo-netfilter.cfg \
 "
 
 # Solo kernel config fragments
@@ -15,6 +16,7 @@ SRC_URI:append:imx-solo = " \
     file://solo-wifi.cfg \
     file://solo-serial.cfg \
     file://solo-squashfs.cfg \
+    file://solo-netfilter.cfg \
 "
 
 # NXP's linux-imx recipe copies its defconfig after do_kernel_configme, which
@@ -26,4 +28,5 @@ DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
     solo-wifi.cfg \
     solo-serial.cfg \
     solo-squashfs.cfg \
+    solo-netfilter.cfg \
 "
