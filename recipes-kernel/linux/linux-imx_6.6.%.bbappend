@@ -14,6 +14,7 @@ SRC_URI:append:imx-solo = " \
     file://solo-media.cfg \
     file://solo-usb-gadget.cfg \
     file://solo-wifi.cfg \
+    file://solo-rfkill.cfg \
     file://solo-serial.cfg \
     file://solo-squashfs.cfg \
     file://solo-netfilter.cfg \
@@ -26,6 +27,7 @@ DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
     solo-media.cfg \
     solo-usb-gadget.cfg \
     solo-wifi.cfg \
+    solo-rfkill.cfg \
     solo-serial.cfg \
     solo-squashfs.cfg \
     solo-netfilter.cfg \
