@@ -32,3 +32,7 @@ DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
     solo-squashfs.cfg \
     solo-netfilter.cfg \
 "
+
+# Controller-only PCI interrupt policy; leave the drone candidate unchanged.
+SRC_URI:append:imx_controller = " file://controller-pci-legacy.cfg"
+DELTA_KERNEL_DEFCONFIG:append:imx_controller = " controller-pci-legacy.cfg"
