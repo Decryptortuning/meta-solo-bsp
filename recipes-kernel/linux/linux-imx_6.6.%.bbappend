@@ -36,3 +36,7 @@ DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
 # Controller-only PCI interrupt policy; leave the drone candidate unchanged.
 SRC_URI:append:imx_controller = " file://controller-pci-legacy.cfg"
 DELTA_KERNEL_DEFCONFIG:append:imx_controller = " controller-pci-legacy.cfg"
+
+# Match NXP LOCALVERSION when staging headers for make-mod-scripts/external
+# modules; otherwise helpers regenerate a different kernel release suffix.
+KERNEL_LOCALVERSION:imx_controller = "-lts-next"
