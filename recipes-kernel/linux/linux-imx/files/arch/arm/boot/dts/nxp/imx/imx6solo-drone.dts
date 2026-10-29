@@ -24,6 +24,8 @@
 };
 
 / {
+	/* Historical placeholder, not measured capacity. U-Boot must replace
+	 * this range with imx_ddr_size() banks before Linux boot; see README.md. */
 	memory@10000000 {
 		device_type = "memory";
 		reg = <0x10000000 0x40000000>;
@@ -88,13 +90,6 @@
 		};
 	};
 
-	v4l2_cap_0 {
-		compatible = "fsl,imx6q-v4l2-capture";
-		ipu_id = <0>;
-		csi_id = <0>;
-		mclk_source = <0>;
-		status = "okay";
-	};
 };
 
 &cpu0 {
@@ -138,7 +133,8 @@
 	adv7610: hdmi-receiver@4c {
 		compatible = "adi,adv7610";
 		reg = <0x4c>;
-		reset-gpios = <&gpio2 19 GPIO_ACTIVE_LOW>;
+		/* Pinned adv7604 drives logical 0 then 1: physical low pulse. */
+		reset-gpios = <&gpio2 19 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 
 		ports {

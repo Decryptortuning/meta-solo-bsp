@@ -14,6 +14,7 @@
 #endif
 
 #if defined(CONFIG_MX6S)
+/* Legacy header default; runtime size comes from imx_ddr_size(). */
 #define PHYS_SDRAM_SIZE		(512u * 1024 * 1024)
 #endif
 
@@ -25,7 +26,7 @@
 	CFG_MFG_ENV_SETTINGS \
 	TEE_ENV \
 	"script=boot.scr\0" \
-	"boot_fdt=try\0" \
+	"boot_fdt=yes\0" \
 	"ip_dyn=yes\0" \
 	"console=" CONSOLE_DEV "\0" \
 	"smp=" SYS_NOSMP "\0" \
@@ -44,18 +45,14 @@
 		"consoleblank=0 vt.global_cursor_default=0 factoryreset=${factoryReset}\0" \
 	"loaduimage=fatload mmc ${mmcdev}:${mmcpart} ${loadaddr} ${uimage}\0" \
 	"loadfdt=fatload mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
-	"mmcboot=run mmcargs; " \
-		"if run loadfdt; then " \
+	"mmcboot=if run loaduimage; then " \
+		"if run loadfdt; then run mmcargs; " \
 			"bootm ${loadaddr} - ${fdt_addr}; " \
-		"else " \
-			"bootm ${loadaddr}; " \
-		"fi\0" \
+		"fi; fi\0" \
 	"boot_latest=setenv mmcpart 2; " \
-		"setenv mmcroot /dev/mmcblk0p2 rootwait ro; " \
-		"if run loaduimage; then run mmcboot; fi\0" \
+		"setenv mmcroot /dev/mmcblk0p2 rootwait ro; run mmcboot\0" \
 	"boot_golden=setenv mmcpart 1; " \
-		"setenv mmcroot /dev/mmcblk0p1 rootwait ro; " \
-		"run loaduimage; run mmcboot\0"
+		"setenv mmcroot /dev/mmcblk0p1 rootwait ro; run mmcboot\0"
 
 #define CFG_SYS_FSL_USDHC_NUM	3
 

@@ -4,14 +4,10 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}/files:"
 SRC_URI:append:imx-solo = " \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-drone.dts;subdir=git \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-controller.dts;subdir=git \
-    file://arch/arm/boot/dts/nxp/imx/imx6solo-3dr.dts;subdir=git \
-    file://arch/arm/boot/dts/nxp/imx/imx6solo-3dr-analogtvin.dts;subdir=git \
-    file://solo-netfilter.cfg \
 "
 
 # Solo kernel config fragments
 SRC_URI:append:imx-solo = " \
-    file://solo-media.cfg \
     file://solo-usb-gadget.cfg \
     file://solo-wifi.cfg \
     file://solo-rfkill.cfg \
@@ -24,7 +20,6 @@ SRC_URI:append:imx-solo = " \
 # overrides KERNEL_CONFIG_FRAGMENTS. Use DELTA_KERNEL_DEFCONFIG so our fragments
 # are merged in do_merge_delta_config after the defconfig copy.
 DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
-    solo-media.cfg \
     solo-usb-gadget.cfg \
     solo-wifi.cfg \
     solo-rfkill.cfg \
@@ -39,4 +34,8 @@ DELTA_KERNEL_DEFCONFIG:append:imx_controller = " controller-pci-legacy.cfg"
 
 # Match NXP LOCALVERSION when staging headers for make-mod-scripts/external
 # modules; otherwise helpers regenerate a different kernel release suffix.
-KERNEL_LOCALVERSION:imx_controller = "-lts-next"
+KERNEL_LOCALVERSION:imx-solo = "-lts-next"
+
+# The drone's ADV7610 is a media-controller subdevice, not a legacy MXC sensor.
+SRC_URI:append:imx_drone = " file://solo-media.cfg"
+DELTA_KERNEL_DEFCONFIG:append:imx_drone = " solo-media.cfg"

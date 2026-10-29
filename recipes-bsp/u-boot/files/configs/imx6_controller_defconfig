@@ -17,7 +17,7 @@ CONFIG_IMX_CONFIG="board/3dr/3dr_hdtc/mx6solo_2x_mt41j128.cfg"
 CONFIG_ENV_IS_IN_MMC=y
 CONFIG_BOOTDELAY=0
 CONFIG_USE_BOOTCOMMAND=y
-CONFIG_BOOTCOMMAND="mmc dev ${mmcdev}; run boot_latest; run boot_golden"
+CONFIG_BOOTCOMMAND="if mmc dev ${mmcdev}; then run boot_latest; run boot_golden; fi"
 # CONFIG_CONSOLE_MUX is not set
 CONFIG_SYS_CONSOLE_IS_IN_ENV=y
 CONFIG_SYS_CONSOLE_OVERWRITE_ROUTINE=y
@@ -121,3 +121,6 @@ CONFIG_FASTBOOT_FLASH=y
 CONFIG_EFI_PARTITION=y
 CONFIG_CMD_CRC32=y
 CONFIG_CRC32_VERIFY=y
+
+# Required for arch_fixup_fdt() to pass detected DRAM banks to Linux.
+CONFIG_OF_LIBFDT=y

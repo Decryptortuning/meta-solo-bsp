@@ -29,6 +29,8 @@
 };
 
 / {
+	/* Historical placeholder, not measured capacity. U-Boot must replace
+	 * this range with imx_ddr_size() banks before Linux boot; see README.md. */
 	memory@10000000 {
 		device_type = "memory";
 		reg = <0x10000000 0x40000000>;

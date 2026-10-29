@@ -15,16 +15,33 @@ SRC_URI:append:imx-solo = " \
     file://board/3dr/3dr_hdtc/3dr_hdtc.c;subdir=git \
     file://board/3dr/3dr_hdtc/mx6solo_2x_mt41j128.cfg;subdir=git \
     file://include/configs/3dr_hdtc.h;subdir=git \
-    file://drone-boot.env \
-    file://controller-boot.env \
 "
 
-do_install:append:imx_drone () {
+# u-boot.inc generates this from the compiled header and defconfig. Never
+# maintain a second handwritten boot command/environment in this layer.
+do_install:append:imx-solo () {
+    test -n "${UBOOT_INITIAL_ENV}" || bbfatal "Solo needs the generated initial environment"
     install -d ${D}${sysconfdir}/u-boot
-    install -m 0644 ${WORKDIR}/drone-boot.env ${D}${sysconfdir}/u-boot/boot.env
+    install -m 0644 ${D}${sysconfdir}/${UBOOT_INITIAL_ENV} ${D}${sysconfdir}/u-boot/boot.env
 }
+FILES:${PN}:append:imx-solo = " ${sysconfdir}/u-boot/boot.env"
 
-do_install:append:imx_controller () {
-    install -d ${D}${sysconfdir}/u-boot
-    install -m 0644 ${WORKDIR}/controller-boot.env ${D}${sysconfdir}/u-boot/boot.env
+# Preserve variant-specific deploy naming if multiple configs are built.
+do_deploy:append:imx-solo() {
+    if [ -n "${UBOOT_CONFIG}" ]; then
+        unset i j
+        for config in ${UBOOT_MACHINE}; do
+            i=$(expr $i + 1);
+            for type in ${UBOOT_CONFIG}; do
+                j=$(expr $j + 1);
+                if [ $j -eq $i ]; then
+                    install -m 644 \
+                        ${B}/${config}/${UBOOT_BINARYNAME}-${type}.${UBOOT_SUFFIX} \
+                        ${DEPLOYDIR}/${UBOOT_IMAGE}_${type}
+                fi
+            done
+            unset j
+        done
+        unset i
+    fi
 }
