@@ -6,27 +6,11 @@ SRC_URI:append:imx-solo = " \
     file://arch/arm/boot/dts/nxp/imx/imx6solo-controller.dts;subdir=git \
 "
 
-# Solo kernel config fragments
-SRC_URI:append:imx-solo = " \
-    file://solo-usb-gadget.cfg \
-    file://solo-wifi.cfg \
-    file://solo-rfkill.cfg \
-    file://solo-serial.cfg \
-    file://solo-squashfs.cfg \
-    file://solo-netfilter.cfg \
-"
-
-# NXP's linux-imx recipe copies its defconfig after do_kernel_configme, which
-# overrides KERNEL_CONFIG_FRAGMENTS. Use DELTA_KERNEL_DEFCONFIG so our fragments
-# are merged in do_merge_delta_config after the defconfig copy.
-DELTA_KERNEL_DEFCONFIG:append:imx-solo = " \
-    solo-usb-gadget.cfg \
-    solo-wifi.cfg \
-    solo-rfkill.cfg \
-    solo-serial.cfg \
-    solo-squashfs.cfg \
-    solo-netfilter.cfg \
-"
+# One ordered list drives both fetch and NXP's post-defconfig merge path.
+OPENSOLO_KERNEL_FRAGMENTS = "solo-usb-gadget.cfg solo-wifi.cfg solo-rfkill.cfg solo-serial.cfg solo-squashfs.cfg solo-netfilter.cfg"
+SRC_URI:append:imx-solo = " ${@' '.join('file://' + f for f in d.getVar('OPENSOLO_KERNEL_FRAGMENTS').split())}"
+# NXP copies defconfig after kernel_configme; DELTA is the effective merge.
+DELTA_KERNEL_DEFCONFIG:append:imx-solo = " ${OPENSOLO_KERNEL_FRAGMENTS}"
 
 # Controller-only PCI interrupt policy; leave the drone candidate unchanged.
 SRC_URI:append:imx_controller = " file://controller-pci-legacy.cfg"

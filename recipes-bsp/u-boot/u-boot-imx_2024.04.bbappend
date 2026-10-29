@@ -3,7 +3,6 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 # Drone/controller U-Boot configs (WIP) + boot environments.
 SRC_URI:append:imx-solo = " \
     file://0001-imx6-add-3dr-hdtc-board-target.patch \
-    file://0002-mx6sabre-common-3dr-hdtc-default-fdt.patch \
     file://configs/imx6_drone_defconfig;subdir=git \
     file://configs/imx6_controller_defconfig;subdir=git \
     file://arch/arm/dts/imx6solo-drone.dts;subdir=git \

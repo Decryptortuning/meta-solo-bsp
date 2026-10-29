@@ -1,3 +1,10 @@
+# OpenSolo active meta-solo-bsp layer
+
+Current build/evidence authority: /home/jresp/solo/workspace/docs/README.md.
+The integration lock owns exact repository and compiled recipe revisions.
+Vendor u-boot-imx checkout inventory differs from the compiled u-boot-imx recipe
+pin; do not overwrite one to conceal the distinction.
+
 # Solo BSP, NXP Scarthgap 6.6.52
 
 This layer owns the two board machines, kernel/DTS and U-Boot. Product image,

@@ -20,3 +20,9 @@ INITRAMFS_IMAGE_NAME = "${INITRAMFS_IMAGE}-${MACHINE}.rootfs"
 INITRAMFS_IMAGE_BUNDLE = "1"
 USE_VT = "0"
 SERIAL_CONSOLES = ""
+
+# SERIAL_CONSOLES is intentionally empty: product inittab owns Linux getty.
+# U-Boot CONSOLE_DEV is independent. MMC device values depend on U-Boot DT aliases;
+# do not infer Linux mmc numbering or change them from labels alone.
+# DRAM placeholders require DCD/runtime bank-fixup/physical-board agreement.
+# Early GPIO/reset sequences and drone legacy video consumers remain W7/W9 gates.
