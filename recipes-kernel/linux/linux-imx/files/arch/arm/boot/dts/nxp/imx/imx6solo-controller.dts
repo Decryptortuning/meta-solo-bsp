@@ -5,14 +5,14 @@
 #include "imx6dl.dtsi"
 
 / {
+	model = "3DR Solo Controller (i.MX6 Solo)";
+	compatible = "3dr,solo-controller", "fsl,imx6dl";
+
 	controller-power {
 		compatible = "opensolo,controller-power-hold";
 		hold-gpios = <&gpio1 19 GPIO_ACTIVE_HIGH>,
 			     <&gpio1 21 GPIO_ACTIVE_HIGH>;
 	};
-
-	model = "3DR Solo Controller (i.MX6 Solo)";
-	compatible = "3dr,solo-controller", "fsl,imx6dl";
 };
 
 / {
