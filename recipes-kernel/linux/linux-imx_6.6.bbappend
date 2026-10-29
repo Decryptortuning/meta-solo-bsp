@@ -23,3 +23,7 @@ KERNEL_LOCALVERSION:imx-solo = "-lts-next"
 # The drone's ADV7610 is a media-controller subdevice, not a legacy MXC sensor.
 SRC_URI:append:imx_drone = " file://solo-media.cfg"
 DELTA_KERNEL_DEFCONFIG:append:imx_drone = " solo-media.cfg"
+
+# Controller-only power ownership; no kernel source/config change for the drone.
+SRC_URI:append:imx_controller = " file://Documentation/devicetree/bindings/power/reset/opensolo,controller-power-hold.yaml;subdir=git file://controller-power.cfg file://0001-power-reset-add-opensolo-controller-holds.patch file://opensolo-controller-power.c;subdir=git/drivers/power/reset"
+DELTA_KERNEL_DEFCONFIG:append:imx_controller = " controller-power.cfg"

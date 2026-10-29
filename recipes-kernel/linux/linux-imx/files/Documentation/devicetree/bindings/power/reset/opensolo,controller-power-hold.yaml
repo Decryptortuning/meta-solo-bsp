@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+%YAML 1.2
+---
+$id: http://devicetree.org/schemas/power/reset/opensolo,controller-power-hold.yaml#
+$schema: http://devicetree.org/meta-schemas/core.yaml#
+
+title: OpenSolo controller STM32 and i.MX power holds
+
+maintainers:
+  - OpenSolo <decryptortuning@gmail.com>
+
+description: |
+  Two i.MX GPIOs retain controller power across STM32 reset and Linux reboot.
+  Both are asserted high at boot. They are released to input mode at final
+  power-off, allowing the STM32 mainboard's power circuit to shut down.
+
+properties:
+  compatible:
+    const: opensolo,controller-power-hold
+  hold-gpios:
+    minItems: 2
+    maxItems: 2
+    description: Active-high controller power holds (GPIO1_IO19 and GPIO1_IO21).
+
+required:
+  - compatible
+  - hold-gpios
+
+additionalProperties: false
